@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <!-- <h1>Main page</h1> -->
+
+    <nav>
+      <div id="left">
+        <h2>E-COMMERCE</h2>
+      </div>
+
+      <div id="center">
+        <ul>
+          <li><a href="#">MEN</a></li>
+          <li><a href="#">WOMEN</a></li>
+          <li><a href="#">KIDS</a></li>
+          <li><a href="#">ELECTRONIC</a></li>
+        </ul>
+      </div>
+
+      <div id="cart-cont">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span id="count">0</span>
+      </div>
+
+      <div id="right">
+        <a href="./login.html"><button>SIGN-IN</button></a>
+        <a href="./signup.html"> <button>SIGN-UP</button></a>
+      </div>
+    </nav>
+    <section id="search">
+      <input type="text" />
+      <button id="searchBtn">Search</button>
+      <div id="searchResult"></div>
+    </section>
+    <main>
+      <section id="maleCont" class="design"></section>
+      <section id="femaleCont" class="design"></section>
+      <section id="kidsCont" class="design"></section>
+      <section id="electroCont" class="design"></section>
+    </main>
+    <script src="./main.js"></script>
+  </body>
+</html>

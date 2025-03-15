@@ -1,0 +1,164 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  padding: 0rem 1rem;
+}
+
+#left {
+  /* background-color: aqua; */
+}
+
+#left > h2 {
+  color:#1f618d;
+  font-size: 1.5rem;
+}
+
+#center {
+  /* background-color: aqua; */
+}
+
+#center > ul {
+  list-style-type: none;
+  display: flex;
+}
+
+#center > ul > li > a {
+  text-decoration: none;
+  color:#1f618d;
+  padding: 1rem;
+  font-size: 1rem;
+  display: block;
+}
+
+#center > ul > li > a:hover {
+  color: black;
+  background-color:#1f618d;
+}
+
+#right {
+  /* background-color: aqua; */
+}
+
+#right button {
+  margin-left: 1rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: none;
+  background-color:#1f618d;
+  color: black;
+}
+
+#right button:active {
+  background-color: white;
+  color: black;
+}
+
+#right > span {
+  color: white;
+}
+
+.design {
+  display: grid;
+  grid-template-columns: repeat(3, 25%);
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.design > div {
+  background-color:#1f618d;
+  border-radius: 15px; /* Rounded corners for cards */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition on hover */
+  overflow: hidden; /* To ensure that the content stays within rounded corners */
+}
+
+.design > div:hover {
+  transform: translateY(-10px); /* Lift the card on hover */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Deepen the shadow on hover */
+}
+
+.design > div > img {
+  width: 100%;
+  height: 10rem;
+  border-radius: 15px 15px 0 0; /* Rounded top corners for the image */
+}
+
+.design > div > h3 {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+.design > div > h2 {
+  padding: 1rem;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+}
+
+.design > div > button {
+  width: 100%;
+  height: 2rem;
+  border: none;
+  background-color: black;
+  color: wheat;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.design > div > button:active {
+  background-color:#1f618d;
+  color: black;
+}
+
+#search {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+#search > input {
+  padding: 0.5rem;
+  border-radius: 5px; /* Round the input corners */
+  border: 1px solid #ccc; /* Light border for the input */
+}
+
+#search > button {
+  margin-top: 1rem;
+  padding: 0.8rem;
+  border: none;
+  background-color:#1f618d;
+  border-radius: 5px;
+  color: black;
+  margin-left: 1rem;
+  cursor: pointer;
+}
+
+#search > button:active {
+  background-color: black;
+  color: white;
+}
+
+#cart-cont {
+  position: relative;
+}
+
+.fa-cart-shopping {
+  color: white;
+}
+
+#count {
+  color: white;
+  font-size: 0.5rem;
+  position: absolute;
+  top: -40%;
+  right: 0%;
+}
