@@ -1,0 +1,60 @@
+main {
+  width: 80%;
+  margin: auto;
+  padding: 1rem;
+  box-sizing: border-box;
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+}
+main > div {
+  display: flex;
+  justify-content: space-between;
+  background-color: black;
+  color: white;
+}
+
+main > div > div {
+  width: 33%;
+}
+
+main > div > div > img {
+  width: 100%;
+  height: 10rem;
+}
+main > div > div > h3 {
+  text-align: center;
+}
+main > div > div > h2 {
+  margin-left: 2rem;
+}
+main > div > div > button {
+  display: block;
+  width: 28%;
+  height: 2rem;
+  margin: auto;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: aqua;
+  color: black;
+}
+main > div > div > button:active {
+  background-color: brown;
+  color: white;
+}
+footer {
+  margin: auto;
+  width: 80%;
+  padding: 1rem;
+}
+footer > button {
+  height: 2.5rem;
+  width: 30%;
+  border: none;
+  background-color: aqua;
+  color: black;
+}
+
+footer > button:active {
+  background-color: brown;
+  color: white;
+}
