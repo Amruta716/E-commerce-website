@@ -3,15 +3,79 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Checkout</title>
     <link rel="stylesheet" href="./card.css" />
   </head>
   <body>
-    <main id="main"></main>
-    <footer>
-      <h2>Total price: Rs <span id="Total"></span></h2>
-      <button>Make Payment</button>
-    </footer>
+
+    <div class="checkout-container">
+
+      <!-- LEFT SIDE -->
+      <section class="shipping">
+
+        <h2>Checkout</h2>
+
+        <h3>Shipping Information</h3>
+
+        <div class="delivery-box">
+          <div class="active">🚚 Delivery</div>
+          <div>📦 Pick up</div>
+        </div>
+
+        <form>
+          <label>Full Name *</label>
+          <input type="text" placeholder="Enter full name">
+
+          <label>Email Address *</label>
+          <input type="email" placeholder="Enter email">
+
+          <label>Phone Number *</label>
+          <input type="tel" placeholder="Enter phone number">
+
+          <label>Country *</label>
+          <select>
+            <option value="">Choose country</option>
+            <option>India</option>
+            <option>USA</option>
+            <option>UK</option>
+          </select>
+
+          <div class="row">
+            <input type="text" placeholder="City">
+            <input type="text" placeholder="State">
+            <input type="text" placeholder="Zip Code">
+          </div>
+
+          <div class="terms">
+            <input type="checkbox"> I agree to Terms & Conditions
+          </div>
+
+        </form>
+
+      </section>
+
+
+      <!-- RIGHT SIDE -->
+      <section class="summary">
+
+        <h3>Review your cart</h3>
+
+        <div id="main"></div>
+
+        <div class="bill">
+          <div><span>Subtotal</span><span>₹ <span id="subTotal"></span></span></div>
+          <div><span>Shipping</span><span>₹ 50</span></div>
+          <div><span>Discount</span><span>-₹ 0</span></div>
+          <hr>
+          <div class="total"><span>Total</span><span>₹ <span id="Total"></span></span></div>
+        </div>
+
+        <button id="pay">Pay Now</button>
+
+      </section>
+
+    </div>
+
     <script src="./card.js"></script>
   </body>
 </html>

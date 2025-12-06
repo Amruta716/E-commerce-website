@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Placed</title>
+  <link rel="stylesheet" href="order.css">
+</head>
+<body>
+
+  <div class="success-box">
+    <h1> Order Placed Successfully!</h1>
+    <p>Your order has been placed and is being processed.</p>
+    <h3>Order Summary</h3>
+    <div id="details"></div>
+    <h2>Total Paid: ₹ <span id="amt"></span></h2>
+    <button onclick="home()">Go Home</button>
+  </div>
+
+  <script>
+    let order = JSON.parse(localStorage.getItem("lastOrder"));
+
+    let output = document.getElementById("details");
+    let amt = document.getElementById("amt");
+
+    order.items.forEach(item => {
+      output.innerHTML += `<p>${item.name} - ₹${item.price}</p>`;
+    });
+
+    amt.innerText = order.total;
+
+    function home() {
+      window.location.href = "./main.html";
+    }
+  </script>
+
+</body>
+</html>

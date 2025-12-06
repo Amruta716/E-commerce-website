@@ -1,210 +1,175 @@
-// ! to add count this variable is declared => after click in product should add cart
+// ===================== CART VARIABLES =====================
 let carditems = [];
-let data = JSON.parse(localStorage.getItem("data"));
+let data = JSON.parse(localStorage.getItem("data")) || [];
 let oneuser = JSON.parse(localStorage.getItem("oneuser"));
 let count = document.querySelector("#count");
 
-console.log(data, oneuser);
-if (oneuser.carditems) {
-  count.innerHTML = oneuser.carditems.length;
+if (oneuser && oneuser.carditems) {
   carditems = oneuser.carditems;
+  count.innerHTML = carditems.length;
+} else {
+  count.innerHTML = 0;
 }
 
+// ===================== LOGIN LOGOUT =====================
 function loginlogout() {
   let login = document.querySelector("#right");
-  //^ oneuser data from local storage
   let oneUserData = JSON.parse(localStorage.getItem("oneuser"));
-  console.log(oneUserData);
-  //^ user information
+
   if (oneUserData) {
-    //^ providing informtion inside right division
     login.innerHTML = `<span>${oneUserData.first}</span> <button id="logout">LogOut</button>`;
-    //^ accessing logout button
-    let logout = document.querySelector("#logout");
-    //^logout event
-    logout.addEventListener("click", () => {
-      //^ removing one user from local storage
+    document.querySelector("#logout").addEventListener("click", () => {
       localStorage.removeItem("oneuser");
-      window.open("./main.html");
+      window.location.href = "./main.html";
     });
   }
 }
 loginlogout();
 
-//! fetching data from server
+// ===================== FETCH PRODUCTS =====================
+let allData = [];
+
 async function allProductData() {
-  let dataFromServer = await fetch(
+  let res = await fetch(
     "https://www.shoppersstack.com/shopping/products/alpha"
   );
-  let convertData = await dataFromServer.json();
-  let allData = convertData.data;
-  console.log(allData);
-  //! filterdata from men
-  let mendata = allData.filter((e) => {
-    if (e.category == "men") {
-      return e;
-    }
-  });
-  //   console.log(mendata);
-  //   console.log(allData);
-  //! filterdata from women
-  let womendata = allData.filter((e) => {
-    if (e.category == "women") {
-      return e;
-    }
-  });
-  //   console.log(womendata);
-  //   console.log(allData);
-  //! filterdata from kids
-  let kidsdata = allData.filter((e) => {
-    if (e.category == "kids") {
-      return e;
-    }
-  });
-  //   console.log(kidsdata);
+  let final = await res.json();
+  allData = final.data;
 
-  let electrodata = allData.filter((e) => {
-    if (e.category == "electronics") {
-      return e;
-    }
-  });
-  //   console.log(electrodata);
+  renderProducts(allData);
+}
+allProductData();
 
-  //!  Men data output
+// ===================== RENDER PRODUCTS =====================
+function renderProducts(data) {
   let MaleOutput = document.querySelector("#maleCont");
-
-  mendata.map((e) => {
-    MaleOutput.innerHTML += ` <div id="${e.productId}">
-          <img src="${e.productImageURLs[0]}" alt="" />
-          <h3>Name :${e.name}</h3>
-          <h2>Price :${e.price}</h2>
-          <h2>Rating :${e.rating}</h2>
-          <button>Add to cart</button>
-        </div>`;
-    // console.log(e);
-  });
-
-  //! Women data output
   let WomenOutput = document.querySelector("#femaleCont");
-  // women data output
-  womendata.map((e) => {
-    WomenOutput.innerHTML += ` <div id="${e.productId}">
-          <img src="${e.productImageURLs[0]}" alt="" />
-          <h3>Name :${e.name}</h3>
-          <h2>Price :${e.price}</h2>
-          <h2>Rating :${e.rating}</h2>
-          <button>Add to cart</button>
-        </div>`;
-    // console.log(e);
-  });
-  //! kids data output
   let kidsoutput = document.querySelector("#kidsCont");
-  kidsdata.map((e) => {
-    kidsoutput.innerHTML += ` <div id="${e.productId}">
-          <img src="${e.productImageURLs[0]}" alt="" />
-          <h3>Name :${e.name}</h3>
-          <h2>Price :${e.price}</h2>
-          <h2>Rating :${e.rating}</h2>
-          <button>Add to cart</button>
-        </div>`;
-  });
-  //!electronic data output
   let electroutput = document.querySelector("#electroCont");
-  electrodata.map((e) => {
-    electroutput.innerHTML += ` <div id="${e.productId}">
-          <img src="${e.productImageURLs[0]}" alt="" />
-          <h3>Name :${e.name}</h3>
-          <h2>Price :${e.price}</h2>
-          <h2>Rating :${e.rating}</h2>
-          <button>Add to cart</button>
-        </div>`;
-  });
 
-  //! search input
+  MaleOutput.innerHTML = "";
+  WomenOutput.innerHTML = "";
+  kidsoutput.innerHTML = "";
+  electroutput.innerHTML = "";
 
-  let input = document.querySelector("input");
-  let searchBtn = document.querySelector("#searchBtn");
-  let searchResult = document.querySelector("#searchResult");
+  data.forEach((e) => {
+    let cardHTML = `
+      <div id="${e.productId}">
+        <img src="${e.productImageURLs[0]}" />
+        <h3>${e.name}</h3>
+        <h2>₹ ${e.price}</h2>
+        <h2>⭐ ${e.rating}</h2>
+        <button>Add to cart</button>
+      </div>
+    `;
 
-  searchBtn.addEventListener("click", (e) => {
-    searchResult.innerHTML = "";
-    allData.map((e) => {
-      if (e.name.toLowerCase().includes(input.value.trim().toLowerCase())) {
-        searchResult.innerHTML += `
-        <div>
-          <img src="${e.productImageURLs[0]}" alt="" />
-          <h3>Name :${e.name}</h3>
-          <h2>Price :${e.price}</h2>
-          <h2>Rating :${e.rating}</h2>
-          <button>Add to cart</button>
-        </div> 
-        `;
-      }
-    });
-  });
-
-  //! accessing all add to cart button
-
-  let main = document.querySelector("main");
-  let allBtn = main.querySelectorAll("button");
-  console.log(allBtn);
-
-  //!adding event listner for each
-  allBtn.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      // console.log("hii");
-      if (oneuser) {
-        console.log(btn.parentElement);
-
-        //! to find clicked product
-        //? to remove duplicated product
-        carditems = carditems.filter((e) => {
-          if (e.productId != btn.parentElement.id) {
-            return e;
-          }
-        });
-
-        //! clicked product add to cart
-        let product = allData.find((e) => {
-          if (e.productId == btn.parentElement.id) {
-            return e;
-          }
-        });
-
-        carditems.push(product);
-
-        oneuser.carditems = carditems;
-        console.log(oneuser);
-        //! Storing data in local storage
-        localStorage.setItem("oneuser", JSON.stringify(oneuser));
-        data = data.filter((e) => {
-          if (e.phone != oneuser.mobile) {
-            return e;
-          }
-        });
-
-        // ! adding current user update details to data
-        data.push(oneuser);
-        console.log(data);
-
-        //! storing updated data in local storage
-        localStorage.setItem("data", JSON.stringify(data));
-        count.innerHTML = oneuser.carditems.length;
-
-        // console.log(carditems);
-
-        //? if user as login then all product well add other wise alert mesg will be displayed
-      } else {
-        alert("login first ");
-        window.location.href = "./login.html";
-      }
-    });
+    if (e.category === "men") MaleOutput.innerHTML += cardHTML;
+    if (e.category === "women") WomenOutput.innerHTML += cardHTML;
+    if (e.category === "kids") kidsoutput.innerHTML += cardHTML;
+    if (e.category === "electronics") electroutput.innerHTML += cardHTML;
   });
 }
 
-allProductData();
+// ===================== SEARCH FUNCTION =====================
+let searchBtn = document.querySelector("#searchBtn");
+let input = document.querySelector("#searchInput");
+let searchResult = document.querySelector("#searchResult");
 
-let carticon = document.querySelector(".fa-cart-shopping");
-carticon.addEventListener("click", () => {
-  window.location.href = "./card.html";
+searchBtn.addEventListener("click", () => {
+  let value = input.value.toLowerCase().trim();
+  searchResult.innerHTML = "";
+
+  let filtered = allData.filter((e) => e.name.toLowerCase().includes(value));
+
+  filtered.forEach((e) => {
+    searchResult.innerHTML += `
+      <div id="${e.productId}">
+        <img src="${e.productImageURLs[0]}" />
+        <h3>${e.name}</h3>
+        <h2>₹ ${e.price}</h2>
+        <h2>⭐ ${e.rating}</h2>
+        <button>Add to cart</button>
+      </div>
+    `;
+  });
+
+  hideAll();
+  searchResult.style.display = "grid";
 });
+
+// ===================== ADD TO CART (EVENT DELEGATION) =====================
+document.addEventListener("click", function (e) {
+  if (e.target.innerText === "Add to cart") {
+    let productId = e.target.parentElement.id;
+
+    if (!oneuser) {
+      alert("Login first");
+      location.href = "./login.html";
+      return;
+    }
+
+    carditems = carditems.filter((i) => i.productId != productId);
+
+    let product = allData.find((p) => p.productId == productId);
+    carditems.push(product);
+
+    oneuser.carditems = carditems;
+    localStorage.setItem("oneuser", JSON.stringify(oneuser));
+
+    let allUsers = JSON.parse(localStorage.getItem("data")) || [];
+    allUsers = allUsers.filter((u) => u.phone != oneuser.mobile);
+    allUsers.push(oneuser);
+    localStorage.setItem("data", JSON.stringify(allUsers));
+
+    count.innerHTML = carditems.length;
+    alert("✅ Added to cart");
+  }
+});
+
+// ===================== FILTER BUTTONS =====================
+let menBtn = document.querySelector("#menBtn");
+let womenBtn = document.querySelector("#womenBtn");
+let kidsBtn = document.querySelector("#kidsBtn");
+let electroBtn = document.querySelector("#electroBtn");
+
+let male = document.querySelector("#maleCont");
+let female = document.querySelector("#femaleCont");
+let kids = document.querySelector("#kidsCont");
+let electro = document.querySelector("#electroCont");
+
+function hideAll() {
+  male.style.display = "none";
+  female.style.display = "none";
+  kids.style.display = "none";
+  electro.style.display = "none";
+  searchResult.style.display = "none";
+}
+
+menBtn.addEventListener("click", () => {
+  hideAll();
+  male.style.display = "grid";
+});
+
+womenBtn.addEventListener("click", () => {
+  hideAll();
+  female.style.display = "grid";
+});
+
+kidsBtn.addEventListener("click", () => {
+  hideAll();
+  kids.style.display = "grid";
+});
+
+electroBtn.addEventListener("click", () => {
+  hideAll();
+  electro.style.display = "grid";
+});
+
+// ===================== CART CLICK =====================
+let carticon = document.querySelector(".fa-cart-shopping");
+
+if (carticon) {
+  carticon.addEventListener("click", () => {
+    window.location.href = "./card.html";
+  });
+}
