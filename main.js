@@ -20,7 +20,7 @@ function loginlogout() {
     login.innerHTML = `<span>${oneUserData.first}</span> <button id="logout">LogOut</button>`;
     document.querySelector("#logout").addEventListener("click", () => {
       localStorage.removeItem("oneuser");
-      window.location.href = "./main.html";
+      window.location.href = "./index.html";
     });
   }
 }
